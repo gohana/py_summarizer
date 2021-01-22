@@ -1,14 +1,14 @@
-# py_summarizer
+# Py Summarizer
 
 Creates a summary of an article given its URL.
 
 ## How to Run
 
-Run `pip install nltk`.
+Run the following commands:
 
-For Python 3.x versions, run command `pip3 install -r requirements.txt`.
-
-Finally, run `python summarizer.py` and input a URL of an article to be summarized.
+1. `pip install nltk`
+2. `python -m pip install -r requirements.txt`
+3. `python summarizer.py` to begin summarizing
 
 ## Credit
 
