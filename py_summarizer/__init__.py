@@ -1,5 +1,0 @@
-# Author: Gal Ohana
-#
-#
-
-
