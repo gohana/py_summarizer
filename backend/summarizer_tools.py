@@ -17,14 +17,11 @@ def open_and_parse(url):
   return soup
 
 
-def summarize(soup_object, num_sentences):
+# build dictionary of fragment strings and count word occurrences
+def count_word_occurrences(soup_object):
   sentences = []
-  summary = []
   words = dict()  # stores each word and its number of occurrences
-  ranks = dict()  # stores indices of each sentence and its points
-  iterations = 0
 
-  # build dictionary of fragment strings and count word occurrences
   for element in soup_object.findAll('p'):
     paragraph = str(''.join(element.findAll(text=True)))
 
@@ -41,15 +38,35 @@ def summarize(soup_object, num_sentences):
           words[word] += 1
         else:
           words[word] = 1
+      
+  return words, sentences
 
-  # pick sentences with highest number of points
+
+# rank sentences by word occurence counts
+def rank_sentences(words, sentences):
+  ranks = dict()  # stores indices of each sentence and its points
+
   for i in range(len(sentences)):
     ranks[i] = 0
     for word in words:
       if word in sentences[i].lower():
         ranks[i] += words[word]
+  
+  return ranks
 
-  # article may have less sentences than num_sentences
+
+# create summary given the soup object
+def summarize(soup_object, num_sentences):
+  summary = []
+  iterations = 0
+
+  # get word occurrence dict and sentences array
+  words, sentences = count_word_occurrences(soup_object)
+
+  # get ranks dict of sentences by number of points
+  ranks = rank_sentences(words, sentences)
+
+  # article may have less than num_sentences
   if len(sentences) < num_sentences:
     num_sentences = len(sentences)
   
@@ -68,3 +85,26 @@ def summarize(soup_object, num_sentences):
     summary[i] = sentences[summary[i]]
   
   return '\n\n'.join(summary)
+
+
+# get the article title given the soup object
+def get_title(soup_object):
+  title = ''
+
+  for element in soup_object.title:
+    title += element
+  
+  return title
+
+
+# gets the article title and summary from the url
+def get_title_and_summary(url, num_sentences):
+  try:
+    soup_object = open_and_parse(url + ' ')
+
+    title = get_title(soup_object)
+    summary = summarize(soup_object, num_sentences)
+    
+    return title, summary
+  except Exception:
+    return False

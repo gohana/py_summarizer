@@ -1,14 +1,4 @@
-from summarizer_tools import open_and_parse, summarize
-
-
-def get_title(soup_object):
-  # extract article title
-  title = ''
-
-  for element in soup_object.title:
-    title += element
-  
-  return title
+from summarizer_tools import get_title_and_summary
 
 
 def main():
@@ -23,24 +13,18 @@ def main():
 
       num_sentences = input("Enter the number of sentences in your summary: ")
       num_sentences = int(num_sentences)
-      
+    
+      # summarize
       print("Summarizing...")
-
-      # open url
-      soup_object = open_and_parse(url + ' ')
-
-      # print title
       print("---------")
-      print(get_title(soup_object), "\n")
-
-      # create summary
-      summary = summarize(soup_object, num_sentences)
-
-      # print summary
+      
+      title, summary = get_title_and_summary(url, num_sentences)
+      
+      print(title + '\n\n')
       print(summary)
       print("---------")
     except Exception:
-      print('Error in input')
+      print('Error in input, exiting...')
       break
 
 
