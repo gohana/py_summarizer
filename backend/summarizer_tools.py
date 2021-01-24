@@ -1,7 +1,13 @@
 from urllib import request
 from bs4 import BeautifulSoup
 import nltk
-nltk.download('punkt')
+import os
+
+# nltk path configuration
+root = os.path.dirname(os.path.abspath(__file__))
+dl_dir = os.path.join(root, 'nltk_data')
+os.chdir(dl_dir)
+nltk.data.path.append(dl_dir)
 
 
 def open_and_parse(url):
@@ -57,6 +63,9 @@ def rank_sentences(words, sentences):
 
 # create summary given the soup object
 def summarize(soup_object, num_sentences):
+  if num_sentences == 0:
+    return ''
+
   summary = []
   iterations = 0
 
@@ -71,7 +80,7 @@ def summarize(soup_object, num_sentences):
     num_sentences = len(sentences)
   
   # build summary by picking top-ranked sentences from sorted ranks
-  for index, value in sorted(ranks.items(), key=lambda x: x[1], reverse=True):
+  for index, _ in sorted(ranks.items(), key=lambda x: x[1], reverse=True):
     summary.append(index)
     # don't exceed the number of sentences for the summary
     if iterations < num_sentences - 1:
@@ -108,3 +117,7 @@ def get_title_and_summary(url, num_sentences):
     return title, summary
   except Exception:
     return False
+
+
+def test_func(msg):
+  return msg + ' back!'

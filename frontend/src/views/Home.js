@@ -59,8 +59,6 @@ const useStyles = makeStyles(() => ({
   },
   summaryInput: {
     fontFamily: muiTheme.palette.typography.fontFamily,
-    // fontColor: muiTheme.palette.primary.main,
-    // color: muiTheme.palette.primary.main,
     padding: '0.8rem',
   },
   button: {
@@ -75,19 +73,6 @@ const useStyles = makeStyles(() => ({
   },
   summarizeIcon: {
     margin: 0,
-    padding: 0,
-  },
-  articleTitle: {
-    fontFamily: muiTheme.palette.typography.fontFamily,
-    color: muiTheme.palette.primary.main,
-    fontSize: '2rem',
-    flexGrow: 1,
-  },
-  summary: {
-    flexGrow: 1,
-  },
-  iconButton: {
-    color: muiTheme.palette.primary.main,
     padding: 0,
   },
   sentencesButton: {
@@ -114,14 +99,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+// to check if URL is valid
+// credit: https://www.geeksforgeeks.org/check-if-an-url-is-valid-or-not-using-regular-expression/
+const regex = new RegExp(
+  '((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]' +
+    '{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)'
+);
+
 function Home() {
   const classes = useStyles();
   const [url, setUrl] = React.useState('');
-  const [summary, setSummary] = React.useState('');
   const [numSentences, setNumSentences] = React.useState(3);
+  const [summary, setSummary] = React.useState('');
 
   const handleUrlChange = (event) => {
-    setUrl(event.target.url);
+    setUrl(event.target.value);
   };
 
   const handleLessSentences = () => {
@@ -135,7 +127,22 @@ function Home() {
   };
 
   const handleSummary = () => {
-    // setSummary();
+    if (url.length === 0 || !regex.test(url)) {
+      // reset
+      setUrl('');
+      setSummary('');
+      return;
+    }
+
+    fetch('http://127.0.0.1:5000/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({url, num_sentences: numSentences}),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setSummary(data.title + '\n\n\n' + data.summary);
+      });
   };
 
   const summarizeButton = (
