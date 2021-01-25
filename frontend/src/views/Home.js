@@ -210,7 +210,6 @@ function Home() {
           InputProps={{className: classes.summaryInput}}
           variant="outlined"
           multiline
-          rows={16}
           disabled
           value={summary}
         />
