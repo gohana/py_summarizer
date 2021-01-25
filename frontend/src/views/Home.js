@@ -88,12 +88,12 @@ const useStyles = makeStyles(() => ({
     whiteSpace: 'nowrap',
   },
   sentencesLeftIcon: {
-    marginLeft: '1rem',
+    marginLeft: '0.2rem',
     padding: 0,
     opacity: '100%',
   },
   sentencesRightIcon: {
-    marginRight: '1rem',
+    marginRight: '0.2rem',
     padding: 0,
     opacity: '100%',
   },
@@ -183,6 +183,7 @@ function Home() {
           onChange={handleUrlChange}
         />
         <Button
+          fullWidth
           className={classes.sentencesButton}
           variant="outlined"
           startIcon={
@@ -209,7 +210,7 @@ function Home() {
           InputProps={{className: classes.summaryInput}}
           variant="outlined"
           multiline
-          rows={15}
+          rows={16}
           disabled
           value={summary}
         />

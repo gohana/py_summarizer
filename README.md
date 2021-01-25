@@ -2,6 +2,10 @@
 
 Creates a summary of an article given its URL.
 
+## Try It Out
+
+Deployed [here](https://pysummarizer.netlify.app/).
+
 ## How to Run (Locally)
 
 In the `/backend` directory, run `python -m pip install -r requirements.txt`.
