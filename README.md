@@ -16,19 +16,12 @@ In the `/backend` directory, run `python summarizer.py`.
 
 First time set up:
 
-In the `/backend` directory, run:
-
-1. `python -m pip install -r requirements.txt`
-2. `python -m pip install flask`
-3. `set FLASK_ENV=development`
-4. `set FLASK_APP=app.py`
-5. `python -m pip install flask-cors`
-
-In the `/frontend` directory, run `npm install`.
+1. In the `/backend` directory, run `python -m pip install -r requirements.txt`
+2. In the `/frontend` directory, run `npm install`
 
 Now you're ready:
 
-1. In the `/backend` directory, run `python -m flask run`
+1. In the `/backend` directory, run `export FLASK_APP=main.py; python -m flask run`
 2. Concurrently, in the `/frontend` directory, run `npm start`
 
 ## Credit

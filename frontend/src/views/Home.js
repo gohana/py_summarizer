@@ -134,7 +134,10 @@ function Home() {
       return;
     }
 
-    fetch('http://127.0.0.1:5000/', {
+    // https://py-summarizer.wl.r.appspot.com/summarize
+    // http://127.0.0.1:5000/summarize
+
+    fetch('https://py-summarizer.wl.r.appspot.com/summarize', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({url, num_sentences: numSentences}),
