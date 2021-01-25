@@ -81,21 +81,11 @@ const useStyles = makeStyles(() => ({
     fontFamily: muiTheme.palette.typography.fontFamily,
     color: muiTheme.palette.primary.main,
     textTransform: 'none',
-    paddingBottom: 0,
-    paddingTop: 0,
+    padding: '0 0.3rem 0 0.3rem',
     height: fieldsHeight,
     borderColor: muiTheme.palette.primary.main,
     whiteSpace: 'nowrap',
-  },
-  sentencesLeftIcon: {
-    marginLeft: '0.2rem',
-    padding: 0,
-    opacity: '100%',
-  },
-  sentencesRightIcon: {
-    marginRight: '0.2rem',
-    padding: 0,
-    opacity: '100%',
+    minWidth: 'fit-content',
   },
 }));
 
@@ -183,21 +173,10 @@ function Home() {
           onChange={handleUrlChange}
         />
         <Button
-          fullWidth
           className={classes.sentencesButton}
           variant="outlined"
-          startIcon={
-            <ArrowLeftIcon
-              className={classes.sentencesLeftIcon}
-              onClick={handleLessSentences}
-            />
-          }
-          endIcon={
-            <ArrowRightIcon
-              className={classes.sentencesRightIcon}
-              onClick={handleMoreSentences}
-            />
-          }
+          startIcon={<ArrowLeftIcon onClick={handleLessSentences} />}
+          endIcon={<ArrowRightIcon onClick={handleMoreSentences} />}
         >
           {numSentences} sentences
         </Button>
@@ -210,6 +189,7 @@ function Home() {
           InputProps={{className: classes.summaryInput}}
           variant="outlined"
           multiline
+          rows={14}
           disabled
           value={summary}
         />
